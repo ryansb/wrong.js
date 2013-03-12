@@ -94,7 +94,6 @@ function switchAlignment()
 }
 
 //Makes all links scroll marquee style. 
-//Must be called from <head>!
 function blinkLinks()
 {
 	var animation = 'a\
@@ -104,6 +103,12 @@ function blinkLinks()
 		animation-timing-function:linear;\
 		animation-iteration-count:infinite;\
 		animation-play-state:running;\
+		/* IE 9*/\
+		-ms-animation-name:myfirst;\
+		-ms-animation.duration:1s;\
+		-ms-animation-timing-function:linear;\
+		-ms-animation-iteration-count:infinite;\
+		-ms-animation-play-state:running;\
 		/* Firefox: */\
 		-moz-animation-name:myfirst;\
 		-moz-animation-duration:1s;\
@@ -125,6 +130,14 @@ function blinkLinks()
 }\
 \
 @keyframes myfirst\
+{\
+		0%   {visibility:visible}\
+		50%  {visibility:visible}\
+		51%  {visibility:hidden}\
+		100%  {visibility:hidden}\
+}\
+\
+@-ms-keyframes myfirst /*IE 9*/\
 {\
 		0%   {visibility:visible}\
 		50%  {visibility:visible}\
@@ -159,9 +172,34 @@ function blinkLinks()
 	var css  = document.createElement('style');
 	css.type = 'text/css';
 
-	if(css.styleSheet) css.styleSheet.cssText = animation;
-	else css.appendChild(document.createTextNode(animation));
+	if(css.styleSheet) 
+		css.styleSheet.cssText = animation;
+	else 
+		css.appendChild(document.createTextNode(animation));
 
+	document.getElementsByTagName("head")[0].appendChild(css);
+}
+
+//Flips images upside down
+function flipImages()
+{
+	var style = 'img\
+{\
+transform:rotate(180deg);\
+-ms-transform:rotate(180deg); /* IE 9 */\
+-moz-transform:rotate(180deg); /* Firefox */\
+-webkit-transform:rotate(180deg); /* Safari and Chrome */\
+-o-transform:rotate(180deg); /* Opera */\
+}'
+
+	var css = document.createElement('style');
+	css.type = 'text/css';
+
+	if(css.styleSheet) 
+		css.styleSheet.cssText = style;
+	else 
+		css.appendChild(document.createTextNode(style));
+	
 	document.getElementsByTagName("head")[0].appendChild(css);
 }
 
